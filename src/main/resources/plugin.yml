@@ -1,0 +1,13 @@
+name: Huntception
+version: '${project.version}'
+main: com.theran.HuntMain
+api-version: 1.17
+authors: [ the, ran ]
+description: huntception wowowowowow
+commands:
+  huntstart:
+    usage: /huntstart
+  huntdebug:
+    usage: /huntdebug
+  huntstop:
+    usage: /huntstop
