@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public class TargetRandomizer {
     public static HashMap<Player, Player> randomizeTargets(ArrayList<Player> playerList){
 
-        HashMap<Player, Player> hunterTarget = new HashMap<Player, Player>();
+        HashMap<Player, Player> hunterTarget = new HashMap<>();
 
         Collections.shuffle(playerList);
 
@@ -32,10 +32,9 @@ public class TargetRandomizer {
         }
 
         if(playerList.size() == 2)
-            Bukkit.getOnlinePlayers().forEach(player -> {
-                player.sendMessage(ChatColor.RED + "Two hunters remain! " + playerList.get(0) + "'s and " + playerList.get(1)
-                + "'s duel begins!");
-            });
+            Bukkit.getOnlinePlayers().forEach(player ->
+                    player.sendMessage(ChatColor.RED + "Two hunters remain! " + playerList.get(0).getName() + "'s and " +
+                            playerList.get(1).getName() + "'s duel begins!"));
         return hunterTarget;
     }
 }

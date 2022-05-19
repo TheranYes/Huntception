@@ -1,6 +1,7 @@
 package com.theran.commands;
 
 import com.theran.HuntMain;
+import com.theran.utils.GameManager;
 import com.theran.utils.TargetRandomizer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -25,7 +26,8 @@ public class HuntStart implements CommandExecutor {
         HuntMain.playingPlayers.clear();
         HuntMain.playingPlayers.addAll(Bukkit.getOnlinePlayers());
 
-        HuntMain.hunterTarget = TargetRandomizer.randomizeTargets(HuntMain.playingPlayers);
+        GameManager.startRound();
+
         return true;
     }
 }
