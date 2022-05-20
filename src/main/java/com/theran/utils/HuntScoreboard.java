@@ -14,29 +14,24 @@ public class HuntScoreboard {
 
     static Score status;
     static Score time;
-    static Score target;
 
     static String timeText = ChatColor.GREEN + "Time: 0:00";
+    static String statusText = "Status: " + ChatColor.RED + "Waiting...";
 
     public static Scoreboard newScoreboard(){
 
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
 
         Score line = objective.getScore(ChatColor.RED + "-=-=-=-=-=-=-=-=-=-=");
-        status = objective.getScore("Status: " + ChatColor.RED + "Waiting...");
+        status = objective.getScore(statusText);
         Score space1 = objective.getScore("");
         time = objective.getScore(timeText);
         Score line2 = objective.getScore(ChatColor.RED + "=-=-=-=-=-=-=-=-=-=-");
 
-        target = objective.getScore(ChatColor.RED + "Target: None");
-        Score space2 = objective.getScore(" ");
-
-        line.setScore(7);
-        status.setScore(6);
-        space1.setScore(5);
-        time.setScore(4);
-        space2.setScore(3);
-        target.setScore(2);
+        line.setScore(5);
+        status.setScore(4);
+        space1.setScore(3);
+        time.setScore(2);
         line2.setScore(1);
 
         return scoreboard;
@@ -59,7 +54,22 @@ public class HuntScoreboard {
         }
 
         time = objective.getScore(s);
-        time.setScore(4);
+        time.setScore(2);
         timeText = s;
+    }
+
+    public static void setStatus(boolean started){
+        String s = "Status: ";
+        if(started)
+            s += ChatColor.GREEN + "Started";
+        else
+            s += ChatColor.RED + "Waiting...";
+
+        if(!Objects.equals(statusText, s))
+            objective.getScoreboard().resetScores(statusText);
+
+        status = objective.getScore(s);
+        status.setScore(4);
+        statusText = s;
     }
 }

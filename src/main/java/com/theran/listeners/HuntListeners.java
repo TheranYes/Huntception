@@ -21,7 +21,7 @@ public class HuntListeners implements Listener {
 
         player.setScoreboard(HuntScoreboard.newScoreboard());
 
-        if(HuntMain.started){
+        if(HuntMain.getStarted()){
             player.setGameMode(GameMode.SPECTATOR);
             player.sendMessage(ChatColor.GRAY + "Game has already started, you're spectating!");
         }
@@ -47,7 +47,7 @@ public class HuntListeners implements Listener {
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event){
-        if(HuntMain.started){
+        if(HuntMain.getStarted()){
             Player killed = event.getEntity();
             System.out.println(killed.getName());
             Player hunter = killed.getKiller();

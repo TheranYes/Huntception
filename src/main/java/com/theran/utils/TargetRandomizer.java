@@ -1,12 +1,9 @@
 package com.theran.utils;
 
-import com.theran.HuntMain;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class TargetRandomizer {
     public static HashMap<Player, Player> randomizeTargets(ArrayList<Player> playerList){

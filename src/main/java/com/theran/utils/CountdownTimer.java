@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 
 public class CountdownTimer implements Runnable {
 
-    private final JavaPlugin plugin;
+    private final HuntMain plugin;
     private Integer assignedTaskId;
 
     private final int seconds;
@@ -19,7 +19,7 @@ public class CountdownTimer implements Runnable {
     private final Runnable beforeTimer;
     private final Runnable afterTimer;
 
-    public CountdownTimer(JavaPlugin plugin, int seconds, Runnable beforeTimer,
+    public CountdownTimer(HuntMain plugin, int seconds, Runnable beforeTimer,
                           Runnable afterTimer, Consumer<CountdownTimer> everySecond){
         this.plugin = plugin;
 

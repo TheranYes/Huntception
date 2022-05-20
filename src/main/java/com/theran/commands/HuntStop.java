@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 public class HuntStop implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        HuntMain.started = false;
+        HuntMain.setStarted(false);
         sender.sendMessage(ChatColor.GRAY + "Game stopped.");
         return true;
     }

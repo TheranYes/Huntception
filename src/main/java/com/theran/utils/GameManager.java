@@ -26,7 +26,8 @@ public class GameManager {
     public static void endGame(){
         Bukkit.getScheduler().cancelTask(timer.getAssignedTaskId());
         Bukkit.getOnlinePlayers().forEach(player -> player.sendMessage("xd termino"));
-        HuntMain.started = false;
+        HuntMain.setStarted(false);
+        HuntScoreboard.setStatus(false);
         /*
         timer = new CountdownTimer(HuntMain.getInstance(), 10,
                 () -> {Bukkit}

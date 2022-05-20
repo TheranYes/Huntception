@@ -15,11 +15,11 @@ import java.util.HashMap;
 
 public final class HuntMain extends JavaPlugin {
 
-    private static JavaPlugin instance;
+    private static HuntMain instance;
 
     public static HashMap<Player, Player> hunterTarget =new HashMap<>();
     public static boolean debugging = false;
-    public static boolean started = false;
+    private static boolean started = false;
     public static ArrayList<Player> playingPlayers = new ArrayList<>();
 
     @Override
@@ -47,7 +47,15 @@ public final class HuntMain extends JavaPlugin {
         System.out.println("Turning off Huntception...");
     }
 
-    public static JavaPlugin getInstance(){
+    public static HuntMain getInstance(){
         return instance;
+    }
+
+    public static boolean getStarted() {
+        return started;
+    }
+
+    public static void setStarted(boolean started){
+        HuntMain.started = started;
     }
 }
