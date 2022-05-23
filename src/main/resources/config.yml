@@ -1,0 +1,5 @@
+pre-round-seconds: 30
+seconds-per-round: 120
+start-kit: false
+border: false
+border-side-length: 500

@@ -12,23 +12,26 @@ import org.bukkit.scoreboard.Scoreboard;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 
 public final class HuntMain extends JavaPlugin {
 
     private static HuntMain instance;
 
-    public static HashMap<Player, Player> hunterTarget =new HashMap<>();
-    public static boolean debugging = false;
+    public static HashMap<UUID, UUID> hunterTarget = new HashMap<>();
+    private static boolean debugging = false;
     private static boolean started = false;
-    public static ArrayList<Player> playingPlayers = new ArrayList<>();
+    private static ArrayList<UUID> playingPlayers = new ArrayList<>();
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
         instance = this;
 
+        getConfig().options().copyDefaults();
+        saveDefaultConfig();
+
         //reloading while online
-        playingPlayers.addAll(Bukkit.getOnlinePlayers());
+        Bukkit.getOnlinePlayers().forEach(player -> playingPlayers.add(player.getUniqueId()));
 
         Scoreboard scoreboard = HuntScoreboard.newScoreboard();
         Bukkit.getOnlinePlayers().forEach(player -> player.setScoreboard(scoreboard));
@@ -57,5 +60,17 @@ public final class HuntMain extends JavaPlugin {
 
     public static void setStarted(boolean started){
         HuntMain.started = started;
+    }
+
+    public static ArrayList<UUID> getPlayingPlayers() {
+        return playingPlayers;
+    }
+
+    public static boolean getDebugging(){
+        return debugging;
+    }
+
+    public static void setDebugging(boolean debugging){
+        HuntMain.debugging = debugging;
     }
 }

@@ -16,7 +16,7 @@ public class HuntScoreboard {
     static Score time;
 
     static String timeText = ChatColor.GREEN + "Time: 0:00";
-    static String statusText = "Status: " + ChatColor.RED + "Waiting...";
+    static String statusText = "Status: " + ChatColor.RED + "" + ChatColor.BOLD + "Not Started";
 
     public static Scoreboard newScoreboard(){
 
@@ -58,15 +58,19 @@ public class HuntScoreboard {
         timeText = s;
     }
 
-    public static void setStatus(boolean started){
-        String s = "Status: ";
-        if(started)
+    public static void setStatus(String text){
+
+        String s = "Status: " + text;
+
+/*        if(started)
             s += ChatColor.GREEN + "Started";
         else
-            s += ChatColor.RED + "Waiting...";
+            s += ChatColor.RED + "Waiting...";*/
 
         if(!Objects.equals(statusText, s))
             objective.getScoreboard().resetScores(statusText);
+        else
+            return;
 
         status = objective.getScore(s);
         status.setScore(4);

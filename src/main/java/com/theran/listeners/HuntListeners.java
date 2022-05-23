@@ -3,13 +3,11 @@ package com.theran.listeners;
 import com.theran.HuntMain;
 import com.theran.utils.GameManager;
 import com.theran.utils.HuntScoreboard;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -29,21 +27,16 @@ public class HuntListeners implements Listener {
 
     @EventHandler
     public void onPlayerLeave(PlayerQuitEvent event){
-        HuntMain.playingPlayers.remove(event.getPlayer());
+        HuntMain.getPlayingPlayers().remove(event.getPlayer().getUniqueId());
         System.out.println("Removing " + event.getPlayer().getName() + " from list...");
     }
 
-    /*
     @EventHandler
     public void onPlayerHurt(EntityDamageByEntityEvent event){
-        Player hurt = (Player) event.getEntity();
-        Player damager = (Player) event.getDamager();
-
-        if(!(HuntMain.hunterTarget.get(damager) == hurt) && HuntMain.started){
-            damager.sendMessage(ChatColor.RED + "You can only damage your target!");
+        if(!HuntMain.getStarted()){
             event.setCancelled(true);
         }
-    } */
+    }
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event){
@@ -52,11 +45,13 @@ public class HuntListeners implements Listener {
             System.out.println(killed.getName());
             Player hunter = killed.getKiller();
 
-            if(hunter != null && HuntMain.hunterTarget.get(hunter) == killed){
-                Bukkit.getServer().getOnlinePlayers().forEach(player -> player.sendMessage(
-                        ChatColor.RED + "" + ChatColor.BOLD + hunter.getName() + " has killed their target!"));
+            if(hunter != null && HuntMain.hunterTarget.get(hunter.getUniqueId()) == killed.getUniqueId()){
+                Bukkit.getServer().getOnlinePlayers().forEach(player -> {
+                    player.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + hunter.getName() + " has killed their target!");
+                    player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_HIT, 2.0f, 1.0f);
+                });
 
-                HuntMain.playingPlayers.remove(killed);
+                HuntMain.getPlayingPlayers().remove(killed.getUniqueId());
 
                 //todo
                 Location location = killed.getLocation();
@@ -64,7 +59,7 @@ public class HuntListeners implements Listener {
                 killed.teleport(location);
             }
 
-            if(HuntMain.playingPlayers.size() == 1)
+            if(HuntMain.getPlayingPlayers().size() == 1)
                 GameManager.endGame();
         }
     }
