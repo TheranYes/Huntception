@@ -2,6 +2,7 @@ package com.theran.listeners;
 
 import com.theran.HuntMain;
 import com.theran.utils.GameManager;
+import com.theran.utils.GameStatus;
 import com.theran.utils.HuntScoreboard;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
@@ -19,7 +20,7 @@ public class HuntListeners implements Listener {
 
         player.setScoreboard(HuntScoreboard.newScoreboard());
 
-        if(HuntMain.getStarted()){
+        if(HuntMain.getGameStatus() != GameStatus.NOT_STARTED){
             player.setGameMode(GameMode.SPECTATOR);
             player.sendMessage(ChatColor.GRAY + "Game has already started, you're spectating!");
         }
@@ -33,14 +34,14 @@ public class HuntListeners implements Listener {
 
     @EventHandler
     public void onPlayerHurt(EntityDamageByEntityEvent event){
-        if(!HuntMain.getStarted()){
+        if(HuntMain.getGameStatus() != GameStatus.STARTED){
             event.setCancelled(true);
         }
     }
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event){
-        if(HuntMain.getStarted()){
+        if(HuntMain.getGameStatus() == GameStatus.STARTED){
             Player killed = event.getEntity();
             System.out.println(killed.getName());
             Player hunter = killed.getKiller();

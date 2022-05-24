@@ -22,7 +22,7 @@ public class GameManager {
             return;
         }
 
-        HuntScoreboard.setStatus(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "In Pre-round");
+        HuntScoreboard.setStatus(GameStatus.PRE_ROUND);
 
         CountdownTimer preRoundTimer;
         preRoundTimer = new CountdownTimer(HuntMain.getInstance(), huntMain.getConfig().getInt("pre-round-seconds"),
@@ -69,7 +69,7 @@ public class GameManager {
                     player.sendMessage(ChatColor.RED + "Two hunters remain! " + Bukkit.getPlayer(players.get(0)).getName() + "'s and " +
                             Bukkit.getPlayer(players.get(1)).getName() + "'s duel begins!"));
 
-        HuntScoreboard.setStatus(ChatColor.GREEN + "" + ChatColor.BOLD + "Started");
+        HuntScoreboard.setStatus(GameStatus.STARTED);
 
         timer = new CountdownTimer(HuntMain.getInstance(), huntMain.getConfig().getInt("seconds-per-round"),
                 () -> {},
@@ -95,7 +95,8 @@ public class GameManager {
     public static void endGame(){
         Bukkit.getScheduler().cancelTask(timer.getAssignedTaskId());
 
-        HuntMain.setStarted(false);
+        HuntMain.setGameStatus(GameStatus.NOT_STARTED);
+        HuntScoreboard.setStatus(GameStatus.NOT_STARTED);
 
         if(!HuntMain.getDebugging()){
             Player winner = Bukkit.getPlayer(HuntMain.getPlayingPlayers().get(0));
@@ -113,7 +114,6 @@ public class GameManager {
         else
             Bukkit.getOnlinePlayers().forEach(player -> player.sendMessage("xd termino"));
 
-        HuntScoreboard.setStatus(ChatColor.RED + "" + ChatColor.BOLD + "Not Started");
         /*
         timer = new CountdownTimer(HuntMain.getInstance(), 10,
                 () -> {Bukkit}

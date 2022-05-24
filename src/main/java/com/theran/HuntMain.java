@@ -4,6 +4,7 @@ import com.theran.commands.HuntDebug;
 import com.theran.commands.HuntStart;
 import com.theran.commands.HuntStop;
 import com.theran.listeners.HuntListeners;
+import com.theran.utils.GameStatus;
 import com.theran.utils.HuntScoreboard;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -20,7 +21,7 @@ public final class HuntMain extends JavaPlugin {
 
     public static HashMap<UUID, UUID> hunterTarget = new HashMap<>();
     private static boolean debugging = false;
-    private static boolean started = false;
+    private static GameStatus gameStatus = GameStatus.NOT_STARTED;
     private static ArrayList<UUID> playingPlayers = new ArrayList<>();
 
     @Override
@@ -54,12 +55,12 @@ public final class HuntMain extends JavaPlugin {
         return instance;
     }
 
-    public static boolean getStarted() {
-        return started;
+    public static GameStatus getGameStatus(){
+        return gameStatus;
     }
 
-    public static void setStarted(boolean started){
-        HuntMain.started = started;
+    public static void setGameStatus(GameStatus gameStatus){
+        HuntMain.gameStatus = gameStatus;
     }
 
     public static ArrayList<UUID> getPlayingPlayers() {

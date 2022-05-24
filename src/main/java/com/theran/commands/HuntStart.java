@@ -2,6 +2,7 @@ package com.theran.commands;
 
 import com.theran.HuntMain;
 import com.theran.utils.GameManager;
+import com.theran.utils.GameStatus;
 import com.theran.utils.HuntScoreboard;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -20,7 +21,7 @@ public class HuntStart implements CommandExecutor {
         }
 
         sender.sendMessage(ChatColor.GREEN + "Starting...");
-        HuntMain.setStarted(true);
+
         HuntMain.getPlayingPlayers().clear();
         Bukkit.getOnlinePlayers().forEach(player -> {
             HuntMain.getPlayingPlayers().add(player.getUniqueId());
@@ -30,7 +31,8 @@ public class HuntStart implements CommandExecutor {
             player.setSaturation(5.0f);
         });
 
-        HuntScoreboard.setStatus(ChatColor.GREEN + "Started");
+        HuntMain.setGameStatus(GameStatus.WAITING);
+        HuntScoreboard.setStatus(GameStatus.WAITING);
         GameManager.startPreRound();
 
         return true;

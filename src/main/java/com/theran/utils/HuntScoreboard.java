@@ -58,14 +58,22 @@ public class HuntScoreboard {
         timeText = s;
     }
 
-    public static void setStatus(String text){
+    public static void setStatus(GameStatus gameStatus){
+        String s = "Status: ";
 
-        String s = "Status: " + text;
-
-/*        if(started)
-            s += ChatColor.GREEN + "Started";
-        else
-            s += ChatColor.RED + "Waiting...";*/
+        switch (gameStatus){
+            case WAITING:
+                s += ChatColor.GRAY + "Waiting...";
+            case PRE_ROUND:
+                s += ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "In Pre-round";
+                break;
+            case STARTED:
+                s += ChatColor.GREEN + "" + ChatColor.BOLD + "In Game";
+                break;
+            case NOT_STARTED:
+                s += ChatColor.RED + "" + ChatColor.BOLD + "Not Started";
+                break;
+        }
 
         if(!Objects.equals(statusText, s))
             objective.getScoreboard().resetScores(statusText);
